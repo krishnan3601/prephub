@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:5000/api';
+  private baseUrl = (window as any).__env?.API_URL || 'http://localhost:5000/api';
   
   questions = signal<any[]>([]);
   topicRequests = signal<any[]>([]);

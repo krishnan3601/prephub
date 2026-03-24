@@ -14,7 +14,7 @@ export default function Questions() {
 
   const fetchQuestions = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/questions');
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/questions`);
       setQuestions(data);
     } catch (err) {
       console.error(err);
@@ -23,7 +23,7 @@ export default function Questions() {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      await axios.post('http://localhost:5000/api/submit', { questionId: id, status }, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/submit`, { questionId: id, status }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       alert(`Marked as ${status}`);
@@ -57,7 +57,7 @@ export default function Questions() {
       missTracked.current.add(term.toLowerCase());
       const token = localStorage.getItem('token');
       if (token) {
-        axios.post('http://localhost:5000/api/trackSearch', { topic: term }, {
+        axios.post(`${import.meta.env.VITE_API_URL}/api/trackSearch`, { topic: term }, {
           headers: { Authorization: `Bearer ${token}` }
         }).catch(() => {}); // silent — don't disrupt UX
       }
