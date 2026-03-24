@@ -38,6 +38,11 @@ app.use('/api', require('./routes/api'));
 // ─── Serve Admin App (Angular) at /admin ─────────────────────────────────────
 const adminDistPath = path.join(__dirname, '../admin-app/dist/admin-app/browser');
 app.use('/admin', express.static(adminDistPath));
+
+// Handle /admin and /admin/* for Angular SPA routing
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(adminDistPath, 'index.html'));
+});
 app.get('/admin/*', (req, res) => {
   res.sendFile(path.join(adminDistPath, 'index.html'));
 });
