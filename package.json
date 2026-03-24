@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently --kill-others-on-fail --names \"BACKEND,STUDENT,ADMIN\" -c \"blue,green,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix student-app\" \"npm run dev --prefix admin-app\"",
     "install-all": "npm install --prefix backend && npm install --prefix student-app && npm install --prefix admin-app",
-    "build": "npm install --prefix student-app && npm run build --prefix student-app && npm install --prefix admin-app && npm run build:prod --prefix admin-app",
+    "build": "npm install --include=dev --prefix student-app && npm run build --prefix student-app && npm install --include=dev --prefix admin-app && npm run build:prod --prefix admin-app",
     "start": "node backend/server.js"
   },
   "keywords": [],
