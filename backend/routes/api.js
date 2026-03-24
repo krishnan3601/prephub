@@ -19,6 +19,26 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// GET / - API status
+router.get('/', (req, res) => {
+  res.json({
+    message: 'PrepHub API is running ✅',
+    routes: [
+      'POST /api/register',
+      'POST /api/login',
+      'GET  /api/questions',
+      'POST /api/submit',
+      'GET  /api/me',
+      'GET  /api/leaderboard',
+      'POST /api/addQuestion',
+      'PUT  /api/update/:id',
+      'DELETE /api/delete/:id',
+      'GET  /api/topicRequests',
+      'POST /api/upload',
+    ]
+  });
+});
+
 // POST /upload
 router.post('/upload', auth, upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
