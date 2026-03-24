@@ -1,0 +1,15 @@
+{
+  "name": "prephub",
+  "version": "1.0.0",
+  "description": "Placement Preparation Hub - Full Stack App",
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail --names \"BACKEND,STUDENT,ADMIN\" -c \"blue,green,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix student-app\" \"npm run dev --prefix admin-app\"",
+    "install-all": "npm install --prefix backend && npm install --prefix student-app && npm install --prefix admin-app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
