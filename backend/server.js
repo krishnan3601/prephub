@@ -32,14 +32,24 @@ const connectDB = async () => {
 
 connectDB();
 
-// Routes
+// ─── API Routes (must come before static file serving) ───────────────────────
 app.use('/api', require('./routes/api'));
 
-app.get('/', (req, res) => {
-  res.send('Placement Preparation Hub API is running');
+// ─── Serve Admin App (Angular) at /admin ─────────────────────────────────────
+const adminDistPath = path.join(__dirname, '../admin-app/dist/admin-app/browser');
+app.use('/admin', express.static(adminDistPath));
+app.get('/admin/*', (req, res) => {
+  res.sendFile(path.join(adminDistPath, 'index.html'));
 });
 
-// Error handling middleware
+// ─── Serve Student App (React/Vite) at / ─────────────────────────────────────
+const studentDistPath = path.join(__dirname, '../student-app/dist');
+app.use(express.static(studentDistPath));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(studentDistPath, 'index.html'));
+});
+
+// ─── Error handling middleware ────────────────────────────────────────────────
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Something went wrong!' });
@@ -47,4 +57,6 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Student App: http://localhost:${PORT}`);
+  console.log(`Admin App:   http://localhost:${PORT}/admin`);
 });
